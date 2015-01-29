@@ -10,7 +10,13 @@ $ = (function (document, window, $) {
       dummy = document.createElement('i');
 
   nodeList[forEach] = each;
-
+  
+  // we don't always know if $() will return a node or a 
+  // nodelist, so allow .forEach() on a single node
+  node['forEach'] = function(fn){
+    [this]['forEach'](fn);
+  };
+  
   // we have to explicitly add a window.on as it's not included
   // in the Node object.
   window.on = node.on = function (event, fn) {
